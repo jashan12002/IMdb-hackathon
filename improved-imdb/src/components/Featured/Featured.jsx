@@ -55,7 +55,7 @@ const Featured = () => {
         />
         
         <ListCard 
-          image="http://localhost:5173/src/assets/pic-2.jpg"
+          image="https://jashan12002.github.io/IMdb-hackathon/src/assets/pic-2.jpg"
           title="Hansal Mehta's List"
           type="Favourite Indian Female Actors"
         />

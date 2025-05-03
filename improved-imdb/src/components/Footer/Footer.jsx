@@ -221,7 +221,7 @@ const Footer = () => {
             </div>
             <div className="flex justify-center">
                 <img 
-                    src="http://localhost:5173/src/assets/qr.png"
+                    src="https://jashan12002.github.io/IMdb-hackathon/src/assets/qr.png"
                     alt="QR Code"
                     className="w-20 h-20 transition-all duration-500 hover:scale-110 hover:brightness-110"
                 />

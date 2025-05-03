@@ -56,14 +56,14 @@ const PopularCelbs = () => {
           <CelebrityCard 
             rank="10"
             name="Sophie Nyweide"
-            image="http://localhost:5173/src/assets/popular.jpg"
+            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular.jpg"
             change="up"
             changeValue="34,688"
           />
           <CelebrityCard 
             rank="16"
             name="Joseph Zada"
-            image="http://localhost:5173/src/assets/popular-2.jpg"
+            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular-2.jpg"
             changeValue="19,277"
           />
           <CelebrityCard 
@@ -76,21 +76,21 @@ const PopularCelbs = () => {
           <CelebrityCard 
             rank="2"
             name="Isabela Merced"
-            image="http://localhost:5173/src/assets/popular-3.jpg"
+            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular-3.jpg"
             change="down"
             changeValue="1"
           />
           <CelebrityCard 
             rank="3"
             name="Pedro Pascal"
-            image="http://localhost:5173/src/assets/popular-2.jpg"
+            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular-2.jpg"
             change="up"
             changeValue="5"
           />
           <CelebrityCard 
             rank="4"
             name="Minka Kelly"
-            image="http://localhost:5173/src/assets/popular.jpg"
+            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular.jpg"
             change="up"
             changeValue="3"
           />

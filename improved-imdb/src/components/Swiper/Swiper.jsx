@@ -99,7 +99,7 @@ const Swiper = () => {
 
     const mainVideos = [
         {
-            thumbnail: "http://localhost:5173/src/assets/swiper-pic1.jpg",
+            thumbnail: "https://jashan12002.github.io/IMdb-hackathon/src/assets/swiper-pic1.jpg",
             duration: "3:38",
             title: "'Another Simple Favor' Stars Dish on Italian Glamour",
             subtitle: "Watch the Interview",
@@ -126,7 +126,7 @@ const Swiper = () => {
             dislikes: "14"
         },
         {
-            thumbnail: "http://localhost:5173/src/assets/pic-2.jpg",
+            thumbnail: "https://jashan12002.github.io/IMdb-hackathon/src/assets/pic-2.jpg",
             duration: "3:23",
             title: "How Ryan Coogler Conjured Magic While Making 'Sinners'",
             subtitle: "Watch the Interview",
