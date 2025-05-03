@@ -1,0 +1,45 @@
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
+
+
+.swiper-button-disabled {
+  opacity: 0 !important;
+  cursor: default !important;
+}
+
+
+.swiper-container {
+  position: relative;
+  width: 100%;
+}
+
+
+.video-card-hover:hover .play-button {
+  opacity: 1;
+}
+
+.play-button {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+
+.swiper-navigation-button {
+  transition: opacity 0.3s ease;
+}
+
+
+.swiper-container:hover .swiper-navigation-button {
+  opacity: 1;
+}
+
+.nav-gradient-left {
+  background: linear-gradient(to right, rgba(0,0,0,0.3), transparent);
+}
+
+.nav-gradient-right {
+  background: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+} 
