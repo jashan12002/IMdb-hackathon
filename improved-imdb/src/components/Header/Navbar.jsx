@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import MoodFilter from '../MoodFilter/MoodFilter'
 import SearchBar from '../SearchBar/SearchBar'
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu'
@@ -6,13 +6,28 @@ import ThemeToggle from '../ThemeToggle/ThemeToggle'
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+    const languageDropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (languageDropdownRef.current && !languageDropdownRef.current.contains(event.target)) {
+                setIsLanguageDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <nav className='text-white bg-card-dark w-full sticky top-0 z-40 border-b border-gray-800' data-theme-bg="dark">
             <div className='flex items-center justify-between px-4 py-2'>
-                
+
                 <div className='flex items-center'>
-                <div className="md:hidden">
+                    <div className="md:hidden">
                         <HamburgerMenu />
                     </div>
                     <svg id="home_img" className="ipc-logo cursor-pointer transform transition-transform hover:scale-105" xmlns="http://www.w3.org/2000/svg" width="64" height="32" viewBox="0 0 64 32" version="1.1">
@@ -26,7 +41,7 @@ const Navbar = () => {
                             <path d="M44.4299079,4.50685823 L44.749518,4.50685823 C46.5447098,4.50685823 48,5.91267586 48,7.64486762 L48,14.8619906 C48,16.5950653 46.5451816,18 44.749518,18 L44.4299079,18 C43.3314617,18 42.3602746,17.4736618 41.7718697,16.6682739 L41.4838962,17.7687785 L37,17.7687785 L37,0 L41.7843263,0 L41.7843263,5.78053556 C42.4024982,5.01015739 43.3551514,4.50685823 44.4299079,4.50685823 Z M43.4055679,13.2842155 L43.4055679,9.01907814 C43.4055679,8.31433946 43.3603268,7.85185468 43.2660746,7.63896485 C43.1718224,7.42607505 42.7955881,7.2893916 42.5316822,7.2893916 C42.267776,7.2893916 41.8607934,7.40047379 41.7816216,7.58767002 L41.7816216,9.01907814 L41.7816216,13.4207851 L41.7816216,14.8074788 C41.8721037,15.0130276 42.2602358,15.1274059 42.5316822,15.1274059 C42.8031285,15.1274059 43.1982131,15.0166981 43.281155,14.8074788 C43.3640968,14.5982595 43.4055679,14.0880581 43.4055679,13.2842155 Z"></path>
                         </g>
                     </svg>
-                    
+
 
                     <div className="hidden md:block">
                         <HamburgerMenu />
@@ -42,26 +57,101 @@ const Navbar = () => {
                     <div className="hidden md:block">
                         <MoodFilter />
                     </div>
-                
+
                     <a href="#" className='hover:bg-[#3e3d3db6] px-2 sm:px-3 py-2 rounded-3xl transition-all duration-200 hidden sm:block'>
-                       <svg className="ipc-logo navbar__imdbpro-menu-toggle__name" width="52" height="14" viewBox="0 0 1448.72 347.5" xmlns="http://www.w3.org/2000/svg" version="1.1"><g fill="currentColor"><rect x="0" y="1" width="88.5" height="341.55"></rect><path d="M256.88,159.61l-12.57-86.76c-3.8-27.8-7.28-52.15-10.75-72.85h-114.8v341.55h77.58l.33-225.48,32.59,225.48h55.24l31.1-230.45,.17,230.45h77.39V0h-115.77l-20.51,159.6Z"></path><path d="M606.54,25.36c-7.77-8.96-19.35-15.41-34.41-19.37-15.05-3.97-39.86-5.98-82.7-5.98h-66v341.55h107.35c21.17,0,37.05-1.16,47.65-3.47,10.4-2.32,19.35-6.29,26.46-12.26,7.11-5.8,12.24-13.9,15.05-24.17,2.97-10.26,4.62-30.78,4.62-61.42v-119.86c0-32.29-1.32-53.96-3.13-65.06-1.99-10.93-6.94-21.03-14.89-29.95M539.89,233.1c0,22.86-1.49,36.77-4.47,41.9-2.97,5.13-10.74,7.6-23.49,7.6V58.47c9.6,0,16.2,.98,19.69,3.13,3.45,1.99,5.78,5.14,6.78,9.6,.99,4.3,1.49,14.23,1.49,29.64v132.26Z"></path><path d="M845.89 107.61c-4.64-6.62-11.09-11.74-19.69-15.39-8.77-3.64-18.86-5.47-30.61-5.47-10.09 0-23.15 2.01-31.92 6.15-8.59 3.96-16.53 10.08-23.65 18.2V0h-85.35v341.55h79.73l5.62-21.7c7.11 8.78 15.06 15.23 23.82 19.7 8.78 4.31 21.67 6.45 31.76 6.45 13.91 0 26.13-3.63 36.23-11.09 10.26-7.27 16.72-16.06 19.37-26 2.81-10.09 4.13-25.32 4.13-45.69v-95.84c0-20.69-.34-34.11-1.32-40.4-.84-6.29-3.65-12.76-8.11-19.38m-75.93 151.17c0 16.39-.84 26.98-2.49 31.28-1.65 4.31-8.77 6.45-14.23 6.45s-8.77-1.97-10.58-6.27c-1.65-4.14-2.65-13.74-2.65-28.81v-90.23c0-15.57.82-25.17 2.33-29.15 1.64-3.8 5.12-5.79 10.24-5.79 5.46 0 12.73 2.33 14.57 6.62 1.81 4.46 2.81 13.9 2.81 28.31v87.58Z"></path></g><g fill="#00ABD2"><path d="M1078.36 48.48c-2.35-10.18-6.85-18.85-13.49-26.01-6.64-7.16-16.56-12.64-29.76-16.43-13.21-3.79-32.08-5.69-56.63-5.69h-90.79V341.3h87.83V194.65h24.2c19.7 0 35.59-1.58 47.8-6.91 12.2-5.33 20.65-14.07 25.22-24.04 4.57-9.97 9.16-26.34 9.16-48.1V95.76c0-21.34-1.18-37.1-3.53-47.28m-73.3 61.28c0 14.54-2.96 20.36-5.45 22.68-3.38 3.16-9.82 4.16-19.32 4.16-1.39 0-3.06.05-4.77 0V57.74c14.74.33 20.91 2.48 23.48 4.3 2.77 1.96 6.06 7.06 6.06 20.21v27.52Z"></path><path d="M1205.93 95.15c-13.25 5.13-18.8 10.02-25.52 16.01V86.67h-85.03v254.81h84.73V239.83c0-23.71.76-38.99 2.26-45.42 1.36-5.86 4.9-10.71 10.76-14.24 2.56-1.54 5.86-3.72 14.18-6.58 5.17-1.78 14.27-4.41 20.27-5.51l30.68-81.46c-12.41 0-35.95 2.19-52.31 8.53"></path><path d="M1444.43 137.8c-2.86-8.81-8.18-17.36-15.94-25.66-7.78-8.3-18.81-15.03-33.1-20.2-14.3-5.17-31.41-7.76-51.35-7.76-23.75 0-43.25 4.02-58.5 12.06-15.25 8.04-25.81 18.71-31.67 31.98-5.86 13.28-8.8 31.73-8.8 55.35v65.11c0 21.58 1.61 37.76 4.84 48.55 3.23 10.79 8.61 19.98 16.17 27.57 7.55 7.6 18.14 13.28 31.78 17.04 13.63 3.76 30.27 5.65 49.92 5.65 17.59 0 33.17-2.2 46.74-6.61 13.56-4.41 24.66-11.23 33.32-20.49 8.65-9.25 14.3-19.21 16.94-29.87 2.64-10.66 3.96-27.41 3.96-50.27v-62.24c0-18-1.43-31.41-4.29-40.22m-82.58 122.16c0 16.48-.84 27.13-2.49 31.46-1.65 4.34-8.77 6.49-14.23 6.49s-8.77-1.98-10.58-6.31c-1.65-4.16-2.65-13.81-2.65-28.97v-90.74c0-15.65.83-25.31 2.33-29.31 1.64-3.82 5.12-5.82 10.24-5.82 5.46 0 12.73 2.34 14.57 6.66 1.81 4.49 2.81 13.98 2.81 28.47v88.07Z"></path></g></svg>
+                        <svg className="ipc-logo navbar__imdbpro-menu-toggle__name" width="52" height="14" viewBox="0 0 1448.72 347.5" xmlns="http://www.w3.org/2000/svg" version="1.1"><g fill="currentColor"><rect x="0" y="1" width="88.5" height="341.55"></rect><path d="M256.88,159.61l-12.57-86.76c-3.8-27.8-7.28-52.15-10.75-72.85h-114.8v341.55h77.58l.33-225.48,32.59,225.48h55.24l31.1-230.45,.17,230.45h77.39V0h-115.77l-20.51,159.6Z"></path><path d="M606.54,25.36c-7.77-8.96-19.35-15.41-34.41-19.37-15.05-3.97-39.86-5.98-82.7-5.98h-66v341.55h107.35c21.17,0,37.05-1.16,47.65-3.47,10.4-2.32,19.35-6.29,26.46-12.26,7.11-5.8,12.24-13.9,15.05-24.17,2.97-10.26,4.62-30.78,4.62-61.42v-119.86c0-32.29-1.32-53.96-3.13-65.06-1.99-10.93-6.94-21.03-14.89-29.95M539.89,233.1c0,22.86-1.49,36.77-4.47,41.9-2.97,5.13-10.74,7.6-23.49,7.6V58.47c9.6,0,16.2,.98,19.69,3.13,3.45,1.99,5.78,5.14,6.78,9.6,.99,4.3,1.49,14.23,1.49,29.64v132.26Z"></path><path d="M845.89 107.61c-4.64-6.62-11.09-11.74-19.69-15.39-8.77-3.64-18.86-5.47-30.61-5.47-10.09 0-23.15 2.01-31.92 6.15-8.59 3.96-16.53 10.08-23.65 18.2V0h-85.35v341.55h79.73l5.62-21.7c7.11 8.78 15.06 15.23 23.82 19.7 8.78 4.31 21.67 6.45 31.76 6.45 13.91 0 26.13-3.63 36.23-11.09 10.26-7.27 16.72-16.06 19.37-26 2.81-10.09 4.13-25.32 4.13-45.69v-95.84c0-20.69-.34-34.11-1.32-40.4-.84-6.29-3.65-12.76-8.11-19.38m-75.93 151.17c0 16.39-.84 26.98-2.49 31.28-1.65 4.31-8.77 6.45-14.23 6.45s-8.77-1.97-10.58-6.27c-1.65-4.14-2.65-13.74-2.65-28.81v-90.23c0-15.57.82-25.17 2.33-29.15 1.64-3.8 5.12-5.79 10.24-5.79 5.46 0 12.73 2.33 14.57 6.62 1.81 4.46 2.81 13.9 2.81 28.31v87.58Z"></path></g><g fill="#00ABD2"><path d="M1078.36 48.48c-2.35-10.18-6.85-18.85-13.49-26.01-6.64-7.16-16.56-12.64-29.76-16.43-13.21-3.79-32.08-5.69-56.63-5.69h-90.79V341.3h87.83V194.65h24.2c19.7 0 35.59-1.58 47.8-6.91 12.2-5.33 20.65-14.07 25.22-24.04 4.57-9.97 9.16-26.34 9.16-48.1V95.76c0-21.34-1.18-37.1-3.53-47.28m-73.3 61.28c0 14.54-2.96 20.36-5.45 22.68-3.38 3.16-9.82 4.16-19.32 4.16-1.39 0-3.06.05-4.77 0V57.74c14.74.33 20.91 2.48 23.48 4.3 2.77 1.96 6.06 7.06 6.06 20.21v27.52Z"></path><path d="M1205.93 95.15c-13.25 5.13-18.8 10.02-25.52 16.01V86.67h-85.03v254.81h84.73V239.83c0-23.71.76-38.99 2.26-45.42 1.36-5.86 4.9-10.71 10.76-14.24 2.56-1.54 5.86-3.72 14.18-6.58 5.17-1.78 14.27-4.41 20.27-5.51l30.68-81.46c-12.41 0-35.95 2.19-52.31 8.53"></path><path d="M1444.43 137.8c-2.86-8.81-8.18-17.36-15.94-25.66-7.78-8.3-18.81-15.03-33.1-20.2-14.3-5.17-31.41-7.76-51.35-7.76-23.75 0-43.25 4.02-58.5 12.06-15.25 8.04-25.81 18.71-31.67 31.98-5.86 13.28-8.8 31.73-8.8 55.35v65.11c0 21.58 1.61 37.76 4.84 48.55 3.23 10.79 8.61 19.98 16.17 27.57 7.55 7.6 18.14 13.28 31.78 17.04 13.63 3.76 30.27 5.65 49.92 5.65 17.59 0 33.17-2.2 46.74-6.61 13.56-4.41 24.66-11.23 33.32-20.49 8.65-9.25 14.3-19.21 16.94-29.87 2.64-10.66 3.96-27.41 3.96-50.27v-62.24c0-18-1.43-31.41-4.29-40.22m-82.58 122.16c0 16.48-.84 27.13-2.49 31.46-1.65 4.34-8.77 6.49-14.23 6.49s-8.77-1.98-10.58-6.31c-1.65-4.16-2.65-13.81-2.65-28.97v-90.74c0-15.65.83-25.31 2.33-29.31 1.64-3.82 5.12-5.82 10.24-5.82 5.46 0 12.73 2.34 14.57 6.66 1.81 4.49 2.81 13.98 2.81 28.47v88.07Z"></path></g></svg>
                     </a>
-                 
+
                     <button className='hover:bg-[#3e3d3db6] px-2 sm:px-3 py-2 rounded-3xl transition-all  md:block duration-200 text-sm sm:text-base hidden'>
                         <span className='font-medium'>Sign In</span>
                     </button>
-    
-                    <button className='hover:bg-[#3e3d3db6] px-2 sm:px-3 py-2 rounded-3xl flex items-center transition-all duration-200 text-sm sm:text-base'>
-                        <span className='font-medium'>EN</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="ml-1" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M7 10l5 5 5-5z"></path>
-                        </svg>
+
+                    <button
+                        className="md:hidden block px-2 py-2 rounded-3xl transition-all bg-[#daae15] text-black font-bold duration-200 text-sm sm:text-base w-fit max-w-[90vw] overflow-hidden text-ellipsis whitespace-nowrap"
+                    >
+                        Use App
                     </button>
 
-                    
+
+
+                    <div className="relative md:block hidden" ref={languageDropdownRef}>
+                        <button
+                            className={`hover:bg-[#3e3d3db6] px-2 sm:px-3 py-2 rounded-3xl flex items-center transition-all duration-200 text-sm sm:text-base ${isLanguageDropdownOpen ? 'bg-[#3e3d3db6]' : ''}`}
+                            onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+                        >
+                            <span className='font-medium'>EN</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" className={`ml-1 transition-transform duration-200 ${isLanguageDropdownOpen ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7 10l5 5 5-5z"></path>
+                            </svg>
+                        </button>
+
+                        {isLanguageDropdownOpen && (
+                            <div className="absolute right-0 mt-2 py-2 w-72 bg-[#1a1a1a] shadow-xl rounded-md border border-gray-700 z-50">
+                                <div className="p-2 border-b border-gray-700">
+                                    <h2 className="text-lg font-bold mb-2">FULLY SUPPORTED</h2>
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 bg-[#F5C518] rounded-full flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="black">
+                                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path>
+                                            </svg>
+                                        </div>
+                                        <span>English (United States)</span>
+                                    </div>
+                                </div>
+                                <div className="p-2">
+                                    <h2 className="text-lg font-bold mb-2 flex items-center">
+                                        PARTIALLY SUPPORTED
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" className="ml-1" viewBox="0 0 24 24" fill="gray">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+                                        </svg>
+                                    </h2>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>Français (Canada)</span>
+                                    </div>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>Français (France)</span>
+                                    </div>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>Deutsch (Deutschland)</span>
+                                    </div>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>हिंदी (भारत)</span>
+                                    </div>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>Italiano (Italia)</span>
+                                    </div>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>Português (Brasil)</span>
+                                    </div>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>Español (España)</span>
+                                    </div>
+
+                                    <div className="flex items-center p-2 hover:bg-[#3e3d3db6] rounded-md cursor-pointer">
+                                        <div className="mr-2 w-6 h-6 rounded-full border border-gray-500"></div>
+                                        <span>Español (México)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-             {/* Mobile Mood Filter - appears below search bar on mobile */}
+            {/* Mobile Mood Filter - appears below search bar on mobile */}
             <div className="md:hidden flex justify-center py-2">
                 <MoodFilter />
             </div>
