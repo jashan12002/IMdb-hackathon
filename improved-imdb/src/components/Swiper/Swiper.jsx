@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import swiper1 from '../../assets/swiper-pic1.jpg';
+import  pic  from '../../assets/pic-2.jpg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './Swiper.css';
@@ -99,7 +101,7 @@ const Swiper = () => {
 
     const mainVideos = [
         {
-            thumbnail: "https://jashan12002.github.io/IMdb-hackathon/src/assets/swiper-pic1.jpg",
+            thumbnail: swiper1,
             duration: "3:38",
             title: "'Another Simple Favor' Stars Dish on Italian Glamour",
             subtitle: "Watch the Interview",
@@ -126,7 +128,7 @@ const Swiper = () => {
             dislikes: "14"
         },
         {
-            thumbnail: "https://jashan12002.github.io/IMdb-hackathon/src/assets/pic-2.jpg",
+            thumbnail: pic,
             duration: "3:23",
             title: "How Ryan Coogler Conjured Magic While Making 'Sinners'",
             subtitle: "Watch the Interview",

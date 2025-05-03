@@ -1,4 +1,7 @@
 import React from 'react'
+import popular from '../../assets/popular.jpg'
+import popular2 from '../../assets/popular-2.jpg'
+import popular3 from '../../assets/popular-3.jpg'
 
 const CelebrityCard = ({ rank, name, image, change, changeValue }) => {
   return (
@@ -56,14 +59,14 @@ const PopularCelbs = () => {
           <CelebrityCard 
             rank="10"
             name="Sophie Nyweide"
-            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular.jpg"
+            image={popular}
             change="up"
             changeValue="34,688"
           />
           <CelebrityCard 
             rank="16"
             name="Joseph Zada"
-            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular-2.jpg"
+            image={popular2}
             changeValue="19,277"
           />
           <CelebrityCard 
@@ -76,21 +79,21 @@ const PopularCelbs = () => {
           <CelebrityCard 
             rank="2"
             name="Isabela Merced"
-            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular-3.jpg"
+            image={popular3}
             change="down"
             changeValue="1"
           />
           <CelebrityCard 
             rank="3"
             name="Pedro Pascal"
-            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular-2.jpg"
+            image={popular3}
             change="up"
             changeValue="5"
           />
           <CelebrityCard 
             rank="4"
             name="Minka Kelly"
-            image="https://jashan12002.github.io/IMdb-hackathon/src/assets/popular.jpg"
+            image={popular}
             change="up"
             changeValue="3"
           />

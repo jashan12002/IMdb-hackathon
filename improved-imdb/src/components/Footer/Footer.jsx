@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import qr from '../../assets/qr.png'
 
 const noScrollbarStyles = `
   .no-scrollbar::-webkit-scrollbar {
@@ -221,7 +222,7 @@ const Footer = () => {
             </div>
             <div className="flex justify-center">
                 <img 
-                    src="https://jashan12002.github.io/IMdb-hackathon/src/assets/qr.png"
+                    src={qr}
                     alt="QR Code"
                     className="w-20 h-20 transition-all duration-500 hover:scale-110 hover:brightness-110"
                 />

@@ -1,4 +1,5 @@
 import React from 'react'
+import pic2 from '../../assets/pic-2.jpg'
 
 const ListCard = ({ image, title, type }) => {
   return (
@@ -55,7 +56,7 @@ const Featured = () => {
         />
         
         <ListCard 
-          image="https://jashan12002.github.io/IMdb-hackathon/src/assets/pic-2.jpg"
+          image={pic2}
           title="Hansal Mehta's List"
           type="Favourite Indian Female Actors"
         />
